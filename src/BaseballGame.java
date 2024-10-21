@@ -13,11 +13,34 @@ public class BaseballGame {
         this.correctNum.addAll(numberSet);
     }
 
-    public String getCorrectNum(){
-        StringBuilder sb = new StringBuilder();
-        for(int i : correctNum){
-            sb.append(i);
+    public List<Integer> getCorrectNum(){
+        return this.correctNum;
+    }
+
+    private static class Result{
+        int ballCount;
+        int strikeCount;
+    }
+
+    public boolean printAnswer(List<Integer> inputNumber){
+        Result result = new Result();
+        for(int i=0; i<inputNumber.size(); i++){
+            if(inputNumber.indexOf(i) == correctNum.indexOf(i)){
+                result.strikeCount++;
+            }else if(correctNum.contains(inputNumber.indexOf(i))) {
+                result.ballCount++;
+            }
         }
-        return sb.toString();
+        if(result.strikeCount==0&&result.ballCount==0){
+            System.out.println("아웃");
+        }
+        if(result.strikeCount != 0){
+            System.out.println("스트라이크"+result.strikeCount+" ");
+        }
+        if(result.ballCount != 0){
+            System.out.println("볼"+result.ballCount);
+        }
+
+        return result.strikeCount==inputNumber.size();
     }
 }
