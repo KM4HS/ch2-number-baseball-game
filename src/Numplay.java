@@ -3,7 +3,8 @@ import java.util.Scanner;
 public class Numplay {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        BaseballGame baseballGame = new BaseballGame();
+        final int numberSize = 3;
+        BaseballGame baseballGame = new BaseballGame(numberSize);
 
         System.out.println("< 게임을 시작합니다 >");
         do {
@@ -14,7 +15,7 @@ public class Numplay {
                 continue;
             }
             System.out.println(" ");
-        } while (!Utils.isGameEnded);
+        } while (!baseballGame.getIsGameEnded());
         System.out.println("정답입니다!");
     }
 }

@@ -5,12 +5,12 @@ import java.util.regex.Pattern;
 public class Parser {
     private static final String NUMBER_REG = "^[0-9]*$";
     private final String input;
+    private final int numberSize;
     private final Set<Integer> set = new LinkedHashSet<>();
 
-    Parser(String input) throws WrongInputException {
+    Parser(String input, int numberSize) {
         this.input = input;
-        ScoreManager scoreManager = new ScoreManager(parseIntSet());
-        scoreManager.printScore();
+        this.numberSize = numberSize;
     }
 
     /**
@@ -42,8 +42,8 @@ public class Parser {
      * @throws WrongInputException 자릿수가 다를 경우
      */
     private void checkDigit() throws WrongInputException {
-        if (input.length() > Utils.numSize) {
-            throw new WrongInputException(ExceptionKeyword.UNMATCHED_DIGIT);
+        if (input.length() != numberSize) {
+            throw new WrongInputException(ExceptionKeyword.UNMATCHED_DIGIT, numberSize);
         }
     }
 
