@@ -5,6 +5,7 @@ public class Numplay {
         PlayController playController = new PlayController();
         do {
             playController.startGameMenu();
+            System.out.println("====================");
         }while(playController.getIsPlayRunning());
     }
 }

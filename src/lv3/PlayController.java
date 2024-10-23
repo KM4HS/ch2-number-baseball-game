@@ -12,6 +12,7 @@ public class PlayController {
     private boolean isPlayRunning = true;
 
     public void startGameMenu(){
+        System.out.println("환영합니다! 원하시는 번호를 입력해주세요.");
         System.out.println("1. 게임 시작하기 2. 게임 기록 보기 3. 종료하기");
         switch (sc.nextLine()) {
             case "1" -> {
@@ -36,13 +37,13 @@ public class PlayController {
     private void playGame(){
         BaseballGame baseballGame = new BaseballGame(3);
         do {
-            System.out.println("숫자를 입력하세요");
+            System.out.print("숫자를 입력하세요 : ");
             try {
                 baseballGame.startGame(sc.nextLine());
             } catch (WrongInputException e) {
                 continue;
             }
-            System.out.println(" ");
+            System.out.println("-----------------");
         } while (baseballGame.getIsGameEnded());
         gameRecordManager.addRecord(baseballGame.getAttemptTime());
         System.out.println("정답입니다!");

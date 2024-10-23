@@ -5,7 +5,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class BaseballGame {
-    private static Set<Integer> correctNum = new LinkedHashSet<>();
+    private Set<Integer> correctNum = new LinkedHashSet<>();
     private static boolean isGameEnded = false;
     private final int numberSize;
     private int attemptTime = 0;
@@ -16,6 +16,13 @@ public class BaseballGame {
             correctNum.add((int) Math.floor(Math.random() * 9 + 1));
         }
         correctNum = Collections.unmodifiableSet(correctNum);
+
+        // 정답 테스트 코드
+        System.out.println("테스트용 정답 출력 : ");
+        for(int i: correctNum){
+            System.out.print(i);
+        }
+        System.out.println(" ");
     }
 
     public void startGame(String input) throws WrongInputException {
