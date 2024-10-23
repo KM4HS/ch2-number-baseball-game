@@ -17,12 +17,12 @@ public class BaseballGame {
         }
         correctNum = Collections.unmodifiableSet(correctNum);
 
-        // 정답 테스트 코드
-        System.out.print("테스트용 정답 출력 : ");
-        for (int i : correctNum) {
-            System.out.print(i);
-        }
-        System.out.println(" ");
+//        // 정답 테스트 코드
+//        System.out.print("테스트용 정답 출력 : ");
+//        for (int i : correctNum) {
+//            System.out.print(i);
+//        }
+//        System.out.println(" ");
     }
 
     public void startGame(String input) throws WrongInputException {

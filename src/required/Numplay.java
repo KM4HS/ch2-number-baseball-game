@@ -1,4 +1,4 @@
-package lv1;
+package required;
 
 import common.BaseballGame;
 import common.WrongInputException;
@@ -6,11 +6,11 @@ import common.WrongInputException;
 import java.util.Scanner;
 
 public class Numplay {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        final int numberSize = 3;
-        BaseballGame baseballGame = new BaseballGame(numberSize);
+    protected static final Scanner sc = new Scanner(System.in);
+    protected static final int NUMBER_SIZE = 3;
+    protected static final BaseballGame baseballGame = new BaseballGame(NUMBER_SIZE);
 
+    protected static void playGame() {
         System.out.println("< 게임을 시작합니다 >");
         do {
             System.out.println("숫자를 입력하세요");
