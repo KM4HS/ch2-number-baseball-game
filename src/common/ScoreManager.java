@@ -23,13 +23,6 @@ public class ScoreManager {
         Iterator<Integer> inputNumberIt = inputNumber.iterator();
         Iterator<Integer> correctNumIt = correctNumber.iterator();
 
-//        // 테스트 코드
-//        System.out.print("정답 : ");
-//        for (int i : correctNumber) {
-//            System.out.print(i);
-//        }
-//        System.out.println(" ");
-
         while (inputNumberIt.hasNext()) {
             int nextInputNum = inputNumberIt.next();
             int nextCorrectNum = correctNumIt.next();

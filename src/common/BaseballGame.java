@@ -6,7 +6,7 @@ import java.util.Set;
 
 public class BaseballGame {
     private Set<Integer> correctNum = new LinkedHashSet<>();
-    private static boolean isGameEnded = false;
+    private boolean isGameEnded;
     private final int numberSize;
     private int attemptTime = 0;
 
@@ -18,22 +18,32 @@ public class BaseballGame {
         correctNum = Collections.unmodifiableSet(correctNum);
 
         // 정답 테스트 코드
-        System.out.println("테스트용 정답 출력 : ");
-        for(int i: correctNum){
+        System.out.print("테스트용 정답 출력 : ");
+        for (int i : correctNum) {
             System.out.print(i);
         }
         System.out.println(" ");
     }
 
     public void startGame(String input) throws WrongInputException {
+        int strikeCount = -1;
         attemptTime++;
         Parser parser = new Parser(input, numberSize);
-        ScoreManager scoreManager = new ScoreManager(parser.parseIntSet(), correctNum);
-        printScore(scoreManager.getStrikeCount(), scoreManager.getBallCount());
+        try {
+            ScoreManager scoreManager = new ScoreManager(parser.parseIntSet(), correctNum);
+            strikeCount = scoreManager.getStrikeCount();
+            printScore(strikeCount, scoreManager.getBallCount());
+        } finally {
+            setIsGameEnded(strikeCount);
+        }
     }
 
     public boolean getIsGameEnded() {
         return !isGameEnded;
+    }
+
+    private void setIsGameEnded(int strikeCount) {
+        isGameEnded = (strikeCount == this.numberSize);
     }
 
     public void printScore(int strikeCount, int ballCount) {
@@ -47,9 +57,9 @@ public class BaseballGame {
             System.out.print("볼" + ballCount);
         }
         System.out.println(" ");
-        isGameEnded = (strikeCount == this.numberSize);
     }
-    public int getAttemptTime(){
+
+    public int getAttemptTime() {
         return attemptTime;
     }
 }
