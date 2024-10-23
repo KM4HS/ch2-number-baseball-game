@@ -1,3 +1,5 @@
+package common;
+
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -8,7 +10,7 @@ public class Parser {
     private final int numberSize;
     private final Set<Integer> set = new LinkedHashSet<>();
 
-    Parser(String input, int numberSize) {
+    public Parser(String input, int numberSize) {
         this.input = input;
         this.numberSize = numberSize;
     }

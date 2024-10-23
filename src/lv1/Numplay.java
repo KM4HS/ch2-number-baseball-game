@@ -1,3 +1,8 @@
+package lv1;
+
+import common.BaseballGame;
+import common.WrongInputException;
+
 import java.util.Scanner;
 
 public class Numplay {
@@ -15,7 +20,7 @@ public class Numplay {
                 continue;
             }
             System.out.println(" ");
-        } while (!baseballGame.getIsGameEnded());
+        } while (baseballGame.getIsGameEnded());
         System.out.println("정답입니다!");
     }
 }

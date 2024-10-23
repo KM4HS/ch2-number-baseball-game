@@ -1,3 +1,5 @@
+package common;
+
 enum ExceptionKeyword {
     INVALID_NUMBER,
     INCLUDE_ZERO,

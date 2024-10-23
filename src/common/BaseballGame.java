@@ -1,3 +1,5 @@
+package common;
+
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -7,7 +9,7 @@ public class BaseballGame {
     private static boolean isGameEnded = false;
     private final int numberSize;
 
-    BaseballGame(int numberSize) {
+    public BaseballGame(int numberSize) {
         this.numberSize = numberSize;
         while (correctNum.size() < this.numberSize) {
             correctNum.add((int) Math.floor(Math.random() * 9 + 1));
@@ -22,7 +24,7 @@ public class BaseballGame {
     }
 
     public boolean getIsGameEnded() {
-        return isGameEnded;
+        return !isGameEnded;
     }
 
     public void printScore(int strikeCount, int ballCount) {

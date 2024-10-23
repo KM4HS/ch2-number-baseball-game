@@ -1,3 +1,5 @@
+package common;
+
 import java.util.Iterator;
 import java.util.Set;
 
@@ -6,7 +8,7 @@ public class ScoreManager {
     private final Set<Integer> correctNumber;
     private final Score score = new Score();
 
-    ScoreManager(Set<Integer> inputNumber, Set<Integer> correctNumber) {
+    public ScoreManager(Set<Integer> inputNumber, Set<Integer> correctNumber) {
         this.inputNumber = inputNumber;
         this.correctNumber = correctNumber;
         makeScore();
