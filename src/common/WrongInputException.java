@@ -1,14 +1,7 @@
 package common;
 
-enum ExceptionKeyword {
-    INVALID_NUMBER,
-    INCLUDE_ZERO,
-    SAME_NUMBER,
-    UNMATCHED_DIGIT;
-}
-
 public class WrongInputException extends Exception {
-    WrongInputException(ExceptionKeyword exceptionKeyword) {
+    public WrongInputException(ExceptionKeyword exceptionKeyword) {
         switch (exceptionKeyword) {
             case INVALID_NUMBER -> System.out.println("올바른 숫자를 입력해주세요.\n");
             case INCLUDE_ZERO -> System.out.println("입력값은 0을 포함할 수 없습니다.\n");

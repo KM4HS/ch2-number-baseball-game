@@ -8,6 +8,7 @@ public class BaseballGame {
     private static Set<Integer> correctNum = new LinkedHashSet<>();
     private static boolean isGameEnded = false;
     private final int numberSize;
+    private int attemptTime = 0;
 
     public BaseballGame(int numberSize) {
         this.numberSize = numberSize;
@@ -18,6 +19,7 @@ public class BaseballGame {
     }
 
     public void startGame(String input) throws WrongInputException {
+        attemptTime++;
         Parser parser = new Parser(input, numberSize);
         ScoreManager scoreManager = new ScoreManager(parser.parseIntSet(), correctNum);
         printScore(scoreManager.getStrikeCount(), scoreManager.getBallCount());
@@ -39,5 +41,8 @@ public class BaseballGame {
         }
         System.out.println(" ");
         isGameEnded = (strikeCount == this.numberSize);
+    }
+    public int getAttemptTime(){
+        return attemptTime;
     }
 }
