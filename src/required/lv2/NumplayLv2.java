@@ -2,6 +2,8 @@ package required.lv2;
 
 import required.Numplay;
 
+// lv2 실행 클래스
+// lv1에서 게임 메뉴 선택지가 추가됨
 public class NumplayLv2 extends Numplay {
     public static void main(String[] args) {
         boolean isPlayEnded = false;
