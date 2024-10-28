@@ -1,15 +1,15 @@
 package challenge;
 
 import common.BaseballGame;
-import common.WrongInputException;
+import input.ExceptionKeyword;
+import input.WrongInputException;
+import input.InputHelper;
 
 import java.util.List;
-import java.util.Scanner;
 
 // 숫자 야구 게임의 전체적인 흐름을 관리하는 추상 클래스
 public abstract class PlayController {
     protected final GameRecordManager gameRecordManager = new GameRecordManager();
-    protected final Scanner sc = new Scanner(System.in);
     protected boolean isPlayRunning = true;
 
     /**
@@ -36,15 +36,23 @@ public abstract class PlayController {
     protected void playGame(int numberSize) {
         BaseballGame baseballGame = new BaseballGame(numberSize);
         do {
+            String inputNumber = InputHelper.input("숫자를 입력하세요 : ");
             try {
-                System.out.print("숫자를 입력하세요 : ");
-                baseballGame.startGame(sc.nextLine());
+                ExceptionKeyword.checkInput(ExceptionKeyword.INVALID_NUMBER, inputNumber);
+                ExceptionKeyword.checkInput(ExceptionKeyword.SAME_NUMBER, inputNumber);
+                ExceptionKeyword.checkInput(ExceptionKeyword.INCLUDE_ZERO, inputNumber);
+                if(numberSize != inputNumber.length()){
+                    System.out.println(numberSize + "자리수로 입력해주세요.\n");
+                    continue;
+                }
+                baseballGame.startGame(inputNumber);
             } catch (WrongInputException e) {
+                System.out.println(e.getMessage());
                 continue;
             }
             System.out.println("-----------------");
         } while (baseballGame.getIsGameEnded());
-        gameRecordManager.addRecord(baseballGame.getAttemptTime());
+        gameRecordManager.addRecord(baseballGame.getTryCount());
         System.out.println("정답입니다!");
     }
 

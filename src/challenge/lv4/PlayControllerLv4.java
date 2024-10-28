@@ -1,38 +1,32 @@
 package challenge.lv4;
 
 import challenge.PlayController;
-import common.ExceptionKeyword;
-import common.WrongInputException;
+import input.ExceptionKeyword;
+import input.WrongInputException;
+import input.InputHelper;
 
 // lv4의 게임 실행 흐름을 관리
 public class PlayControllerLv4 extends PlayController {
-    private static int numberSize = 3;
+    private String inputNumberSize = "3";
 
-    /**
-     * 사용자에게 4개의 선택지를 제공하고, 각 선택지에 따른 메서드를 실행함. 잘못된 선택지 입력시 탈출.
-     *
-     * @throws WrongInputException : 선택지 이후 메서드의 예외, 또는 자리수 설정시 지정 범위(3~5)를 벗어나거나 숫자가 아닐 경우
-     */
     @Override
-    public void startGameMenu() throws WrongInputException {
-        System.out.println("0. 자리수 설정(기본 3자리) 1. 게임 시작하기 2. 게임 기록 보기 3. 종료하기");
-        switch (sc.nextLine()) {
+    public void startGameMenu() {
+        switch (InputHelper.input("0. 자리수 설정(기본 3자리) 1. 게임 시작하기 2. 게임 기록 보기 3. 종료하기\n")) {
             case "0": {
-                System.out.print("설정하고자 하는 자리수를 입력하세요(3~5) : ");
+                String temp = InputHelper.input("설정하고자 하는 자리수를 입력하세요(3~5) : ");
                 try {
-                    numberSize = sc.nextInt();
-                    sc.nextLine();
-                } catch (Exception e) {
-                    throw new WrongInputException(ExceptionKeyword.INVALID_NUMBER);
+                    ExceptionKeyword.checkInput(ExceptionKeyword.INVALID_NUMBER, temp);
+                    ExceptionKeyword.checkInput(ExceptionKeyword.UNMATCHED_DIGIT,temp);
+                } catch (WrongInputException e) {
+                    System.out.println(e.getMessage());
+                    break;
                 }
-                if (numberSize > 5 || numberSize < 3) {
-                    throw new WrongInputException(ExceptionKeyword.ENABLE_DIGIT);
-                }
-                System.out.println(numberSize + "자리수 난이도로 설정되었습니다.\n");
+                inputNumberSize = temp;
+                System.out.println(inputNumberSize + "자리수 난이도로 설정되었습니다.\n");
             }
             case "1": {
                 System.out.println("< 게임을 시작합니다 >");
-                playGame(numberSize);
+                playGame(Integer.parseInt(inputNumberSize));
                 break;
             }
             case "2": {

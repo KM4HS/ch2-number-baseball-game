@@ -1,15 +1,19 @@
 package common;
 
+import input.WrongInputException;
+
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.List;
 
 // 숫자 야구 게임 한 사이클의 진행을 담당
 public class BaseballGame {
-    private Set<Integer> correctNum = new LinkedHashSet<>();
-    private boolean isGameEnded;
+    private final List<Character> availableChars = List.of('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
+    private final String correctNumber;
     private final int numberSize;
-    private int attemptTime = 0;
+
+    private boolean isGameEnded;
+    private int tryCount = 0;
 
     /**
      * 생성자가 호출될 때 크기에 맞는 불변 랜덤 숫자 Set 생성
@@ -18,17 +22,7 @@ public class BaseballGame {
      */
     public BaseballGame(int numberSize) {
         this.numberSize = numberSize;
-        while (correctNum.size() < this.numberSize) {
-            correctNum.add((int) Math.floor(Math.random() * 9 + 1));
-        }
-        correctNum = Collections.unmodifiableSet(correctNum);
-
-/*        // 정답 테스트 코드
-        System.out.print("테스트용 정답 출력 : ");
-        for (int i : correctNum) {
-            System.out.print(i);
-        }
-        System.out.println(" ");*/
+        correctNumber = generateRandomNumber();
     }
 
     /**
@@ -38,25 +32,18 @@ public class BaseballGame {
      * 3. 점수 출력
      *
      * @param input : 사용자의 입력값
-     * @throws WrongInputException : 입력값 예외 발생시
      */
-    public void startGame(String input) throws WrongInputException {
-        int strikeCount = -1;
-        attemptTime++;
-        Parser parser = new Parser(input, numberSize);
-        try {
-            ScoreManager scoreManager = new ScoreManager(parser.parseIntSet(), correctNum);
-            strikeCount = scoreManager.getStrikeCount();
-            printScore(strikeCount, scoreManager.getBallCount());
-        } finally {
-            setIsGameEnded(strikeCount);
-        }
+    public void startGame(String input) {
+        tryCount++;
+        ScoreManager scoreManager = new ScoreManager(input, correctNumber);
+        printScore(scoreManager.getStrikeCount(), scoreManager.getBallCount());
+        checkIsGameEnded(scoreManager.getStrikeCount());
     }
 
     /**
      * 게임이 끝났는가 여부를 알림
      *
-     * @return : {@code isGameEnded}가 true일 때 게임 종료
+     * @return : {@code isGameEnded}가 true 일 때 게임 종료
      */
     public boolean getIsGameEnded() {
         return !isGameEnded;
@@ -67,7 +54,7 @@ public class BaseballGame {
      *
      * @param strikeCount : strike 점수
      */
-    private void setIsGameEnded(int strikeCount) {
+    private void checkIsGameEnded(int strikeCount) {
         isGameEnded = (strikeCount == this.numberSize);
     }
 
@@ -95,7 +82,17 @@ public class BaseballGame {
      *
      * @return : 시도 횟수
      */
-    public int getAttemptTime() {
-        return attemptTime;
+    public int getTryCount() {
+        return tryCount;
+    }
+
+    private String generateRandomNumber() {
+        List<Character> target = new ArrayList<>(availableChars);
+        Collections.shuffle(target);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < numberSize; i++) {
+            sb.append(target.get(i));
+        }
+        return sb.toString();
     }
 }

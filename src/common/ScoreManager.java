@@ -1,13 +1,11 @@
 package common;
 
-import java.util.Iterator;
-import java.util.Set;
-
 // 사용자 입력값과 정답값을 비교하여 점수를 계산 및 관리하는 클래스
 public class ScoreManager {
-    private final Set<Integer> inputNumber;
-    private final Set<Integer> correctNumber;
-    private final Score score = new Score();
+    private final String inputNumber;
+    private final String correctNumber;
+    private final int strike;
+    private final int ball;
 
     /**
      * 생성자가 호출되면 매개변수 값을 받아 {@code makeScore()}로 점수를 계산
@@ -15,47 +13,45 @@ public class ScoreManager {
      * @param inputNumber   : 사용자가 입력한 정답값
      * @param correctNumber : 정답값
      */
-    public ScoreManager(Set<Integer> inputNumber, Set<Integer> correctNumber) {
+    public ScoreManager(String inputNumber, String correctNumber) {
         this.inputNumber = inputNumber;
         this.correctNumber = correctNumber;
-        makeScore();
+        this.strike = countStrike();
+        this.ball = countBall();
     }
 
-    // ball, strike 점수를 각각 저장하기 위한 이너 클래스
-    private static class Score {
-        int ballCount;
-        int strikeCount;
-    }
-
-    /**
-     * 입력값, 정답값 두 Set 을 돌며 점수 계산
-     */
-    private void makeScore() {
-        Iterator<Integer> inputNumberIt = inputNumber.iterator();
-        Iterator<Integer> correctNumIt = correctNumber.iterator();
-
-        while (inputNumberIt.hasNext()) {
-            int nextInputNum = inputNumberIt.next();
-            int nextCorrectNum = correctNumIt.next();
-            if (nextInputNum == nextCorrectNum) {
-                score.strikeCount++;
-            } else if (correctNumber.contains(nextInputNum)) {
-                score.ballCount++;
+    private int countStrike() {
+        int strikeCount = 0;
+        for (int i = 0; i < correctNumber.length(); i++) {
+            if (correctNumber.charAt(i) == inputNumber.charAt(i)) {
+                strikeCount++;
             }
         }
+        return strikeCount;
+    }
+
+    private int countBall() {
+        int ballCount = 0;
+        for (int i=0; i < correctNumber.length(); i++){
+            if(correctNumber.charAt(i) != inputNumber.charAt(i) &&
+            correctNumber.contains(Character.toString(inputNumber.charAt(i)))){
+                ballCount++;
+            }
+        }
+        return ballCount;
     }
 
     /**
      * @return : ball 점수를 반환
      */
     public int getBallCount() {
-        return score.ballCount;
+        return ball;
     }
 
     /**
      * @return : strike 점수를 반환
      */
     public int getStrikeCount() {
-        return score.strikeCount;
+        return strike;
     }
 }

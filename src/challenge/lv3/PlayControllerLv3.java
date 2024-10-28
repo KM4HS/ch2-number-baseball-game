@@ -1,6 +1,7 @@
 package challenge.lv3;
 
 import challenge.PlayController;
+import input.InputHelper;
 
 // lv3의 게임 실행 흐름을 관리
 public class PlayControllerLv3 extends PlayController {
@@ -9,8 +10,7 @@ public class PlayControllerLv3 extends PlayController {
      */
     @Override
     public void startGameMenu() {
-        System.out.println("1. 게임 시작하기 2. 게임 기록 보기 3. 종료하기");
-        switch (sc.nextLine()) {
+        switch (InputHelper.input("1. 게임 시작하기 2. 게임 기록 보기 3. 종료하기")) {
             case "1" -> {
                 System.out.println("< 게임을 시작합니다 >");
                 playGame(3);

@@ -1,5 +1,6 @@
 package required.lv2;
 
+import input.InputHelper;
 import required.Numplay;
 
 // lv2 실행 클래스
@@ -9,8 +10,8 @@ public class NumplayLv2 extends Numplay {
         boolean isPlayEnded = false;
         System.out.println("환영합니다! 원하시는 번호를 입력해주세요.");
         do {
-            System.out.println("1. 게임 시작하기 2. 종료하기");
-            switch (sc.nextLine()) {
+            String selectedMenu = InputHelper.input("1. 게임 시작하기 2. 종료하기\n");
+            switch (selectedMenu) {
                 case "1" -> playGame();
                 case "2" -> {
                     System.out.println("게임을 종료합니다.");

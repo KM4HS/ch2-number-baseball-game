@@ -1,5 +1,7 @@
 package challenge;
 
+import input.WrongInputException;
+
 // 도전 과제의 실행을 위한 부모 클래스
 public class Numplay {
     /**
@@ -12,7 +14,8 @@ public class Numplay {
         do {
             try {
                 playController.startGameMenu();
-            } catch (common.WrongInputException e) {
+            } catch (WrongInputException e) {
+                System.out.println(e.getMessage());
                 continue;
             }
             System.out.println("====================");
